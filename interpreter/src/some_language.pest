@@ -1,0 +1,28 @@
+separator={"，"}  //中文逗号
+
+numeric={ASCII_DIGIT}
+numbers={numeric+}
+
+
+plus={"加"}
+minus={"减"}
+multiply={"乘"}
+divide={"除以"}
+operator={plus|minus|multiply|divide}
+arithmetic={(operator~variable)|(variable~operator~variable)}
+
+
+alloc={"是"}
+onFact={"没错"}
+unknown={"不知"}
+unknownValue={"多少"}
+predicate={alloc|onFact|unknown|unknownValue}
+
+character={!(operator|separator|predicate|" "|"\t")~ANY}
+variable={(character)+}
+
+askUnknown={variable~alloc~unknownValue}
+statement={variable~alloc~numbers}
+relation={variable~alloc~arithmetic}
+expression={askUnknown|statement|relation}
+block={expression~(separator~expression)*}
